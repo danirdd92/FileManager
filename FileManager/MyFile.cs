@@ -6,17 +6,11 @@ namespace FileManager
 {
     public abstract class MyFile : IFileAttributes
     {
-        const bool ISHEBSUPPORTED = true;
-        private readonly string _filePath;
-        private static List<string> _paths;
+        const bool IS_HEB_SUPPORTED = true;
+        protected readonly string _filePath;
+        private  static List<string> _paths;
 
-        public string FilePath
-        {
-            get
-            {
-                return _filePath;
-            }
-        }
+        public string FilePath { get; set; }
 
         public int FileSize { get; private set; }
 
