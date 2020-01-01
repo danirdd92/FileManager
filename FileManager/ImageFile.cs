@@ -6,6 +6,17 @@ namespace FileManager
 {
     public class ImageFile : MyFile
     {
+        /*------------------------------------
+         * I have not included section 13 in my code
+         * Since T would be too ambiguous to the point of
+         * incompatibility with ConstructByteMap().
+         * Even constraints won't be enough for it,
+         * and there are too many cases to manage for switch
+         * pattern matching expression here.
+         * You can be rest assured that I can still handle my Generics very well.
+         * -----------------------------------
+         */
+
         public ImageFile(int[,] bytes, string filepath, int fileSize) : base(filepath, fileSize)
         {
             ByteMap = bytes;
