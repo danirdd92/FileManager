@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 
 namespace FileManager
 {
-    public class WordFile : MyFile, IWordCounter
+    public class WordFile : MyFile, IWordCounter, ISpecificWordkCount
     {
-        #region Properties And Index
+        #region Fields/Properties And Index
+
+        private Dictionary<string, int> _words = new Dictionary<string, int>();
+
         public string Text { get; }
 
         public int NumOfWords
@@ -51,6 +55,7 @@ namespace FileManager
         public WordFile(string text, string filePath, int fileSize) : base(filePath, fileSize)
         {
             Text = text;
+            _words = IndexFileText(this);
         }
 
         #region Methods
@@ -83,6 +88,29 @@ namespace FileManager
                 }
             }
             return sb.ToString();
+        }
+
+        private static Dictionary<string, int> IndexFileText(WordFile file)
+        {
+            return file.Text.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
+                       .GroupBy(x => x)
+                       .Select(x => new { Word = x.Key, Count = x.Count() })
+                       .ToDictionary((x => x.Word), x => x.Count);
+        }
+
+        public void GetSpecificWordCount(string word)
+        {
+            foreach (var i in _words)
+            {
+                if (i.Key.Equals(word))
+                {
+                    Console.WriteLine($"The word '{word}' has appeared {i.Value} times in the text");
+                    break;
+                }
+            }
+
+
+
         }
         #endregion
 
@@ -117,9 +145,9 @@ namespace FileManager
 
             if (isBigger)
             {
-               return  new WordFile(file1.Text + " " + file2.Text,
-                                          file1.FilePath + ".mrg",
-                                          file1.FileSize + file2.FileSize);
+                return new WordFile(file1.Text + " " + file2.Text,
+                                           file1.FilePath + ".mrg",
+                                           file1.FileSize + file2.FileSize);
             }
             else
             {
