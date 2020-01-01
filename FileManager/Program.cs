@@ -1,11 +1,18 @@
-﻿using System;
+﻿using Microsoft.Extensions.Configuration;
+using System;
+using System.IO;
 
 namespace FileManager
 {
-    class Program
+    public static class Program
     {
         static void Main(string[] args)
         {
+
+          
+
+
+
 
         }
     }

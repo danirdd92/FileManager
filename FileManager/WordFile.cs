@@ -6,7 +6,7 @@ namespace FileManager
 {
     public class WordFile : MyFile, IWordCounter
     {
-        public WordFile(string text, string filePath) : base(filePath)
+        public WordFile(string text, string filePath, int fileSize) : base(filePath, fileSize)
         {
             Text = text;
         }

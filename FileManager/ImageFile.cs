@@ -7,7 +7,7 @@ namespace FileManager
     public class ImageFile : MyFile
     {
         private int[,] _byteMap;
-        public ImageFile(int[,] bytes, string filepath) : base(filepath)
+        public ImageFile(int[,] bytes, string filepath, int fileSize) : base(filepath, fileSize)
         {
             _byteMap = bytes;
             ConstructByteMap(_byteMap);

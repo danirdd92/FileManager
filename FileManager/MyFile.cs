@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 
 namespace FileManager
 {
@@ -18,16 +19,31 @@ namespace FileManager
 
         public bool IsArchived { get; private set; }
 
-        public bool IsInfected { get; private set; }
+        public bool IsInfected { get; private set; } = false;
 
-        public MyFile(string path)
+        protected MyFile(string path, int fileSize)
         {
             _filePath = path;
-        }
+            FileSize = fileSize;
 
+            if (VirusScanner.IsFileInfected(this))
+            {
+                throw new InfectedFileDetectedException($"The file at {this.FilePath} has been infected with an Ebola and HIV hybrid!");
+            }
+        }
 
         public abstract void PrintFiie();
 
+        public static void SortFilesBySize(ref IEnumerable<MyFile> files)
+        {
+            files.OrderBy(x => x.FileSize);
+        }
 
+        public static void SortFilesByPath(ref IEnumerable<MyFile> files)
+        {
+            files.OrderBy(x => x.FilePath);
+
+        }
     }
+
 }
