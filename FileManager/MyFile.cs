@@ -10,7 +10,7 @@ namespace FileManager
         #region Fields And Properties
         const bool IS_HEB_SUPPORTED = true;
         protected readonly string _filePath;
-        private static List<string> _paths;
+        private static List<string> _paths = new List<string>();
 
         public string FilePath { get; set; }
 
@@ -27,7 +27,7 @@ namespace FileManager
         {
             _filePath = path;
             FileSize = fileSize;
-
+            _paths.Add(path);
             if (VirusScanner.IsFileInfected(this))
             {
                 throw new InfectedFileDetectedException($"The file at {this.FilePath} has been infected with an Ebola and HIV hybrid!");
