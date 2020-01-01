@@ -7,9 +7,10 @@ namespace FileManager
 {
     public abstract class MyFile : IFileAttributes
     {
+        #region Fields And Properties
         const bool IS_HEB_SUPPORTED = true;
         protected readonly string _filePath;
-        private  static List<string> _paths;
+        private static List<string> _paths;
 
         public string FilePath { get; set; }
 
@@ -20,6 +21,7 @@ namespace FileManager
         public bool IsArchived { get; private set; }
 
         public bool IsInfected { get; private set; } = false;
+        #endregion
 
         protected MyFile(string path, int fileSize)
         {
@@ -32,6 +34,7 @@ namespace FileManager
             }
         }
 
+        #region Methods
         public abstract void PrintFiie();
 
         public static void SortFilesBySize(ref IEnumerable<MyFile> files)
@@ -44,6 +47,33 @@ namespace FileManager
             files.OrderBy(x => x.FilePath);
 
         }
+        #endregion
+
+        #region Overrides and Operators
+        public override bool Equals(object obj)
+        {
+            // Using Pattern Maching, make sure you have an updated version of C#
+            if (obj != null && obj is MyFile file)
+                return this.FilePath == file.FilePath;
+            else
+                return false;
+        }
+
+        public static bool operator ==(MyFile file1, MyFile file2)
+        {
+            return file1.Equals(file2);
+        }
+
+        public static bool operator !=(MyFile file1, MyFile file2)
+        {
+            return !file1.Equals(file2);
+        }
+
+        public override int GetHashCode()
+        {
+            return this.FilePath.GetHashCode();
+        }
+        #endregion
     }
 
 }

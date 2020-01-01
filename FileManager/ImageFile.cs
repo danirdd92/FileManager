@@ -6,20 +6,13 @@ namespace FileManager
 {
     public class ImageFile : MyFile
     {
-        private int[,] _byteMap;
         public ImageFile(int[,] bytes, string filepath, int fileSize) : base(filepath, fileSize)
         {
-            _byteMap = bytes;
-            ConstructByteMap(_byteMap);
+            ByteMap = bytes;
+            ConstructByteMap(ByteMap);
         }
 
-        public int[,] ByteMap 
-        { 
-            get
-            {
-                return _byteMap;
-            } 
-        }
+        public int[,] ByteMap { get; }
 
         public override void PrintFiie()
         {
